@@ -1,0 +1,70 @@
+$--color-primary: #a90000;
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+@import "~element-ui/packages/theme-chalk/src/index";
+html,
+body,
+div,
+span,
+header,
+footer,
+nav,
+section,
+aside,
+article,
+ul,
+dl,
+dt,
+dd,
+li,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+i,
+b,
+textarea,
+button,
+input,
+select,
+figure,
+figcaption {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-style: normal;
+  text-decoration: none;
+  border: none;
+  font-weight: normal;
+  font-family: "Microsoft Yahei";
+  box-sizing: border-box;
+  &:hover {
+    outline: none;
+  }
+}
+.clearfix:after {
+  clear: both;
+  content: "";
+  display: block;
+}
+html,
+body,
+.app-container {
+  height: 100%;
+  width: 100%;
+  background-color: #eacca6;
+}
+.app-container {
+  max-width: 768px;
+  min-width: 360px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+.com-radius {
+  border: 1px solid #ebebeb;
+  border-radius: 3px;
+  transition: 0.2s;
+}

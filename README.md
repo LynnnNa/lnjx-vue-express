@@ -1,5 +1,5 @@
 # lnjx-vue3
-
+Vue Vue-Router Element-ui Sass 
 ## Project setup
 ```
 npm install
