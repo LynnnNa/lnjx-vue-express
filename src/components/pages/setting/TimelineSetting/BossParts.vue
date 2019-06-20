@@ -1,12 +1,7 @@
 <template>
   <div class="parts-wrap"
        v-show="parts.length">
-    <!-- <div class="boss-name">
-      <el-divider content-position="left">
-        <el-input v-model="_bossName"></el-input>
-      </el-divider>
-    </div> -->
-    <el-input :autosize="{minRows:1,maxRows:5}"
+    <el-input :autosize="{minRows:1,maxRows:4}"
               :class="error[0]"
               v-model="globlePart"
               placeholder="关键技能(全局)"
@@ -22,16 +17,18 @@
               type="textarea"
               @keyup.native="changePart(p,i+1)"></el-input>
     <div class="clearfix">
-      <el-button class="add-part"
-                 type="info"
-                 icon="el-icon-plus"
-                 circle
-                 @click="addPart">
-      </el-button>
-      <el-button type=""></el-button>
+      <el-tooltip content="添加part"
+                  placement="left">
+        <el-button class="add-part"
+                   type="info"
+                   icon="el-icon-plus"
+                   circle
+                   @click="addPart">
+        </el-button>
+      </el-tooltip>
     </div>
     <div class="clearfix">
-      <ImportExport class="import-export" />
+      <el-button @click="deleteBoss">删除当前boss</el-button>
       <el-button type="primary"
                  class="save"
                  @click="dataSave">保存
@@ -41,7 +38,6 @@
 </template>
 <script>
 import { DataConvert } from "@comp/common/mUtils";
-import ImportExport from "./ImportExport";
 export default {
   data() {
     return {
@@ -54,7 +50,6 @@ export default {
     parts: Array,
     bossName: String
   },
-  components: { ImportExport },
   computed: {
     fullPart: {
       get() {
@@ -133,7 +128,7 @@ export default {
           .replace(/;+/g, ";")
           .replace(/ +/g, " ");
         let strToArray = DataConvert.stringToPartsJson(str);
-        if (i > 0 && !strToArray.length) continue;
+        if (i > 1 && !strToArray.length) continue;
         strToArray = DataConvert.sortUnique(strToArray);
         arrayTofile.push(strToArray);
         arrayFullPart.push(DataConvert.partsJsonToString(strToArray));
@@ -141,6 +136,17 @@ export default {
       this.fullPart = arrayFullPart;
       // return JSON.stringify(arrayTofile);
       return arrayTofile;
+    },
+    deleteBoss() {
+      this.$confirm("该操作将永久删除当前boss. 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$emit("deleteBoss");
+        })
+        .catch(() => {});
     },
     dataSave() {
       if (!this.checkPartStr(this.fullPart))
@@ -150,8 +156,8 @@ export default {
           showClose: true,
           duration: 1000
         });
-      let stringTofile = this.formatData(this.fullPart);
-      this.$emit("newBossParts", stringTofile);
+      let newPart = this.formatData(this.fullPart);
+      this.$emit("newBossParts:newP", newPart);
     }
   }
 };

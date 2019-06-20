@@ -1,50 +1,64 @@
 <template>
-  <div class="fb-name">
+  <div class="fb-name clearfix">
     <el-select class="fb-container"
                filterable
                placeholder="选择副本集"
-               v-model="index"
-               @change="changeFB($event)">
-      <el-option v-for="(data,FBindex) in datas"
-                 :key="FBindex"
+               v-model="index">
+      <el-option v-for="(data,i) in datas"
+                 :key="i"
                  :label="data"
-                 :value="FBindex"></el-option>
+                 :value="i"></el-option>
     </el-select>
+    <el-button v-if="FBIndex != null"
+               class="delete-fb-container"
+               @click="deleteFBContainer(FBIndex)">删除副本集</el-button>
     <el-button class="add-fb-container"
-               @click="dialogAddFBcontainer = true">添加副本集</el-button>
-    <el-dialog :visible.sync="dialogAddFBcontainer">
-      <el-input v-model="inputFBname"
-                placeholder="副本名称"></el-input>
-      <div slot="footer"
-           class="dialog-footer">
-        <el-button @click="dialogAddFBcontainer = false">取 消</el-button>
-        <el-button type="primary"
-                   @click="dialogAddFBcontainer = false">确 定</el-button>
-      </div>
-    </el-dialog>
-    <BossAddDelete />
+               @click="addFBContainer">添加副本集</el-button>
   </div>
 </template>
 <script>
-import BossAddDelete from "./BossAddDelete";
 export default {
   data() {
-    return {
-      index: null,
-      inputFBname: "",
-      dialogAddFBcontainer: false
-    };
+    return {};
   },
   props: {
-    datas: Array
+    datas: Array,
+    FBIndex: Number
   },
-  components: {
-    BossAddDelete
+  computed: {
+    index: {
+      get() {
+        return this.datas[this.FBIndex];
+      },
+      set(n) {
+        this.$emit("update:FBIndex", n);
+      }
+    }
   },
   methods: {
-    changeFB(e) {
-      this.$emit("update:FBIndex", e);
-      // this.$emit("changeFB", this.FBindex);
+    deleteFBContainer(index) {
+      this.$confirm("此操作将永久删除当前副本集, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$emit("deleteFBContainer", index);
+        })
+        .catch(() => {});
+    },
+    addFBContainer() {
+      this.$prompt("", "", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputPlaceholder: "副本集名称, 小于10字符",
+        inputPattern: /^[\w|\u4e00-\u9fa5]{1,10}$/,
+        inputErrorMessage: "小于10字符, 英文,中文,数字,下划线"
+      })
+        .then(({ value }) => {
+          this.$emit("addFBContainer", value);
+        })
+        .catch(() => {});
     }
   }
 };
@@ -55,7 +69,7 @@ export default {
     margin-right: 10px;
   }
   .add-fb-container {
-    margin-right: 10px;
+    float: right;
   }
 }
 </style>

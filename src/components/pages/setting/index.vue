@@ -38,7 +38,9 @@ export default {
   mounted() {},
 
   methods: {
-    goBack() {}
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+    }
   }
 };
 </script>
@@ -61,6 +63,12 @@ export default {
       flex-grow: 1;
       overflow: auto;
       padding: 20px 20px 20px 10px;
+    }
+    .timeline {
+      .add-boss {
+        float: right;
+        padding: 8px;
+      }
     }
   }
   .parts-wrap {

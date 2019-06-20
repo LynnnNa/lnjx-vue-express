@@ -13,5 +13,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.import-export {
+  margin-top: 15px;
+}
 </style>
 
