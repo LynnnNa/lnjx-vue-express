@@ -9,7 +9,9 @@
         </router-link>
       </el-col>
       <el-col :span="12">
-        <el-button>生活技能</el-button>
+        <router-link to="/jobber">
+          <el-button>生活技能</el-button>
+        </router-link>
       </el-col>
     </el-row>
   </div>
@@ -21,6 +23,9 @@ export default {
 </script>
 <style lang="scss">
 .container-index {
+  max-width: 768px;
+  min-width: 360px;
+  margin: 0 auto;
   padding: 20% 15px 15px 15px;
   text-align: center;
   /* @media screen and(max-height:756px) {

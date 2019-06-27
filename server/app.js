@@ -7,6 +7,7 @@ var logger = require("morgan")
 // var indexRouter = require("./routes/index")
 // var usersRouter = require("./routes/users")
 var savetimeline = require("./routes/savetimeline")
+var updategoods = require("./routes/updategoods")
 
 var app = express()
 /* app.use(
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, "public")))
 
 // app.use("/", indexRouter)
 app.use("/savetimeline", savetimeline)
+app.use("/updategoods", updategoods)
 // app.use("/users", usersRouter)
 
 module.exports = app

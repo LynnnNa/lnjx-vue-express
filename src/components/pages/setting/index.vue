@@ -1,8 +1,6 @@
 <template>
   <div class="setting com-radius">
-    <el-page-header class="pageheader"
-                    content="设置"
-                    @back="goBack" />
+    <TheHeader :title="title" />
     <el-tabs class="tab-settings"
              :tab-position="tabPosition">
       <el-tab-pane label="时间轴">
@@ -19,17 +17,20 @@
   </div>
 </template>
 <script>
+import TheHeader from "@comp/common/TheHeader";
 import TimelineSetting from "./TimelineSetting";
 import HotkeysSetting from "./HotkeysSetting";
 import AppearSetting from "./AppearSetting";
 export default {
   data() {
     return {
+      title: "设置",
       tabPosition: "left"
     };
   },
 
   components: {
+    TheHeader,
     TimelineSetting,
     HotkeysSetting,
     AppearSetting
@@ -46,13 +47,16 @@ export default {
 </script>
 <style lang="scss">
 .setting {
+  max-width: 768px;
+  min-width: 360px;
+  margin: 0 auto;
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   height: 100%;
-  .pageheader {
-    padding: 10px;
-    border-bottom: 1px solid #ebebeb;
-  }
+
   .tab-settings {
     flex-grow: 1;
     display: flex;

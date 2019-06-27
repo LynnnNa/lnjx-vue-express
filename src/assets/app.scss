@@ -57,14 +57,12 @@ body,
   width: 100%;
   background-color: #eacca6;
 }
-.app-container {
-  max-width: 768px;
-  min-width: 360px;
-  margin: 0 auto;
-  background-color: #fff;
-}
 .com-radius {
   border: 1px solid #ebebeb;
   border-radius: 3px;
   transition: 0.2s;
+}
+.pageheader {
+  padding: 10px;
+  border-bottom: 1px solid #ebebeb;
 }

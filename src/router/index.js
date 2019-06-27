@@ -18,5 +18,12 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName:"SettingApp" */ "@pages/setting/index.vue")
     }
+    ,
+    {
+      path: "/jobber",
+      name: "jobber",
+      component: () =>
+        import(/* webpackChunkName:"SettingApp" */ "@pages/jobber/index.vue")
+    }
   ]
 })
